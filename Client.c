@@ -9,7 +9,7 @@
 
 int main() {
     int serverSocket, clientSocket;
-    struct sockaddr_in serverSocket, clientSocket;
+    struct sockaddr_in serverAddress, clientAddress;
 
     //Création du socket client
     clientSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -25,7 +25,7 @@ int main() {
         perror("Erreur lors de la configuration de l'adresse du serveur");
         exit(1);
     }
-        
+    
     //Connexion au serveur
     if (connect(clientSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0) {
         perror("Erreur lors de la connexion au serveur");
@@ -37,8 +37,8 @@ int main() {
     while (1) {
         printf("Entrez une commande : ");
         fgets(command, MAX_COMMAND_LENGTH, stdin);
-        command[strcspn(command, "\n")] = 0; //Suppression le saut a la ligne de la commande
-
+        //Suppression le saut a la ligne de la commande
+        command[strcspn(command, "\n")] = 0; 
         //Envoi de la commande au serveur
         if (send(clientSocket, command, strlen(command), 0) < 0) {
             perror("Erreur lors de l'envoi de la commande");
@@ -63,5 +63,4 @@ int main() {
     //Fermeture du socket
     close(clientSocket);
     return 0;
-}
 }
