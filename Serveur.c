@@ -24,9 +24,9 @@ int main(int arc, char *argv[]) {
    serverAddress.sin_family = AF_INET;
    serverAddress.sin_port = htons(1234); //Numéro de port
    
-   //Liaison du socket avec l'adresse du serveur
-   if (inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr) < 0) {
-      perror("Erreur lors de la configuration de l'adresse du serveur");
+   // Effectuer la liaison du socket du serveur avec une adresse IP et un port spécifiques
+   if (bind(serverSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0) {
+      perror("Erreur lors de la liaison du socket");
       exit(1);
    }
 
@@ -38,7 +38,7 @@ int main(int arc, char *argv[]) {
    }
    
    //Acceptation de la connexion
-   if ((clientSocket = accept(server_fd, (struct sockaddr *)&clientAddress, (socklen_t*)&clientLength))<0) {
+   if ((clientSocket = accept(serverSocket, (struct sockaddr *)&clientAddress, (socklen_t*)&clientLength))<0) {
       perror("Erreur lors de l'acceptation de la connexion");
       exit(1);
    }
@@ -67,14 +67,14 @@ int main(int arc, char *argv[]) {
       memset(output, 0, sizeof(output));
       while (fgets(output, sizeof(output), fp) != NULL) {
          //Envoi de la sortie de la commande
-         if (send(new_socket, output, strlen(output), 0) == -1) {
+         if (send(clientSocket, output, strlen(output), 0) == -1) {
             perror("Erreur lors de l'envoi de la sortie de la commande");
             break;
          }
          memset(output, 0, sizeof(output));
       }
       //Envoi du resultat de la commande
-      if (send(new_socket, "Fin de la commande", 19, 0) == -1) {
+      if (send(clientSocket, "Fin de la commande", 19, 0) == -1) {
          perror("Erreur lors de l'envoi du résultat de la commande");
          break;
       }
