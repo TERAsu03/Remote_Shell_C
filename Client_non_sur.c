@@ -7,7 +7,7 @@
 
 #define MAX_COMMAND_LENGTH 4096
 
-int main() {
+int main(int argc, char *argv[]) {
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <serveur_ip> <serveur_port>\n", argv[0]);
         exit(1);
@@ -25,8 +25,9 @@ int main() {
     // Configuration de l'adresse du serveur
 // Configuration de l'adresse du serveur
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(1234); // Numéro de port
-    serverAddress.sin_addr.s_addr = inet_addr("192.168.1.40"); // Utilisation de la variable server_ip
+    int port = atoi(argv[2]);
+    serverAddress.sin_port = htons(port); // Numéro de port
+    serverAddress.sin_addr.s_addr =uméro de port inet_addr(argv[1]); // Utilisation de la variable server_ip
 
 
 
