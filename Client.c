@@ -24,10 +24,6 @@ int main() {
     serverAddress.sin_port = htons(1234); // Numéro de port
     serverAddress.sin_addr.s_addr = inet_addr("192.168.1.40"); // Utilisation de la variable server_ip
 
-    if (inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr) < 0) {
-    perror("Erreur lors de la configuration de l'adresse du serveur");
-    exit(1);
-}
 
     
     //Connexion au serveur
@@ -67,4 +63,3 @@ int main() {
     //Fermeture du socket
     close(clientSocket);
     return 0;
-}
