@@ -5,10 +5,13 @@
 #include <arpa/inet.h>
 #include <string.h>
 
-#define MAX_COMMAND_LENGTH 256
+#define MAX_COMMAND_LENGTH 4096
 
 int main(int arc, char *argv[]) {
-   
+   if (arc != 3) {
+      printf("Usage: %s <server_ip><serveur_port\n", argv[0]);
+      return(1);
+   }
    int serverSocket, clientSocket;
    struct sockaddr_in serverAddress, clientAddress;
    socklen_t clientLength;
@@ -22,7 +25,9 @@ int main(int arc, char *argv[]) {
    
    // Configuration de l'adresse du serveur
    serverAddress.sin_family = AF_INET;
-   serverAddress.sin_port = htons(1234); //Numéro de port
+    int port = atoi(argv[2]);
+   serverAddress.sin_port = htons(port); //Numéro de port
+   serverAddress.sin_addr.s_addr = inet_addr(argv[1]); // Adresse IP spécifique
    
    // Effectuer la liaison du socket du serveur avec une adresse IP et un port spécifiques
    if (bind(serverSocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0) {
@@ -63,7 +68,7 @@ int main(int arc, char *argv[]) {
       }
 
       //Lecture de la sortie de la commande
-      char output[256]; 
+      char output[4096]; 
       memset(output, 0, sizeof(output));
       while (fgets(output, sizeof(output), fp) != NULL) {
          //Envoi de la sortie de la commande
@@ -82,3 +87,4 @@ int main(int arc, char *argv[]) {
       //Terminer la commande
       pclose(fp);
    }
+}
