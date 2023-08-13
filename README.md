@@ -17,17 +17,17 @@ Serveur:
   gcc -o Serveur Serveur.c
 </pre>
 ## Utilisation:
--1 Compilation du code en utilisant les codes ci-dessus 
--2 Exécuter le serveur
+1 Compilation du code en utilisant les codes ci-dessus 
+2 Exécuter le serveur
 
 <pre>
   ./Serveur "adresse_ip" "numero_port"
 </pre>
--3 Exécuter le client 
+3 Exécuter le client 
 <pre>
   ./Client "adresse_ip" "numero_port"
 </pre>
--4 Entrer le code dans le prompt du client
+4 Entrer le code dans le prompt du client
 Exemple
 <pre>
   Entrez une commande : whoami
@@ -37,5 +37,9 @@ Assurez-vous que le client et le serveur sont exécutés sur des machines access
 Pour terminer le code utiliser la commande exit dans le prompt du client
 <pre>
   Entrer une commande : exit
-  
+  Demande de fermeture du serveur
+  Deconnexion du client
 </pre>
+## Auteur
+Thomas Vanderhoeven
+
