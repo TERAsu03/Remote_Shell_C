@@ -50,6 +50,13 @@ int main(int argc, char *argv[]) {
             perror("Erreur lors de l'envoi de la commande");
             break;
         }
+
+        // Envoi du caractère de terminaison
+        char terminationChar = '\0';
+        if (send(clientSocket, &terminationChar, 1, 0) < 0) {
+            perror("Erreur lors de l'envoi du caractère de terminaison");
+            break;
+        }
         
         //Réception de la réponse du serveur
         sleep(1);
