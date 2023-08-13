@@ -77,6 +77,14 @@ int main(int arc, char *argv[]) {
             break;
          }
          memset(output, 0, sizeof(output));
+
+         
+         //Ajout du caractère de terminaison
+         char terminationChar = '\0';
+         if (send(clientSocket, &terminationChar, 1, 0) == -1) {
+            perror("Erreur lors de l'envoi du caractère de terminaison");
+            break;
+         }
       }
       //Envoi du resultat de la commande
       if (send(clientSocket, "Fin de la commande", 19, 0) == -1) {
