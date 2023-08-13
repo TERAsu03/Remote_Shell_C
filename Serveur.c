@@ -59,6 +59,12 @@ int main(int arc, char *argv[]) {
          perror("Erreur lors de la réception de la commande");
          exit(1);   
       }
+      
+      // Vérifier si le client demande la fermeture du serveur
+        if (strcmp(command, "exit") == 0) {
+            printf("Demande de fermeture du serveur\n");
+            break;
+        }
 
       //Exécution de la commande système
       FILE* fp = popen(command, "r");
@@ -78,19 +84,24 @@ int main(int arc, char *argv[]) {
          }
          memset(output, 0, sizeof(output));
       }
+
       //Terminer la commande
       pclose(fp);
    
-      //Envoi du resultat de la commande
+//Envoi du resultat de la commande
       if (send(clientSocket, "Fin de la commande", 19, 0) == -1) {
          perror("Erreur lors de l'envoi du résultat de la commande");
          break;
       }
+         
       //Ajout du caractère de terminaison
       char terminationChar = '\0';
       if (send(clientSocket, &terminationChar, 1, 0) == -1) {
          perror("Erreur lors de l'envoi du caractère de terminaison");
          break;
       }
-   }   
+      
+      
+   }
+
 }
