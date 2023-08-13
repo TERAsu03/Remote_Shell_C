@@ -59,6 +59,12 @@ int main(int arc, char *argv[]) {
          perror("Erreur lors de la réception de la commande");
          exit(1);   
       }
+      
+      // Vérifier si le client demande la fermeture du serveur
+        if (strcmp(command, "exit-server") == 0) {
+            printf("Demande de fermeture du serveur\n");
+            break;
+        }
 
       //Exécution de la commande système
       FILE* fp = popen(command, "r");
