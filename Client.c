@@ -44,7 +44,16 @@ int main(int argc, char *argv[]) {
         printf("Entrez une commande : ");
         fgets(command, MAX_COMMAND_LENGTH, stdin);
         //Suppression le saut a la ligne de la commande
-        command[strcspn(command, "\n")] = 0; 
+        command[strcspn(command, "\n")] = 0;
+
+        // Vérifier si l'utilisateur souhaite quitter
+        if (strcmp(command, "exit") == 0) {
+            printf("Demande de fermeture du serveur\n");
+            printf("Deconnexion du client");
+            send(clientSocket, command, strlen(command), 0);
+            break;
+        }
+         
         //Envoi de la commande au serveur
         if (send(clientSocket, command, strlen(command), 0) < 0) {
             perror("Erreur lors de l'envoi de la commande");
