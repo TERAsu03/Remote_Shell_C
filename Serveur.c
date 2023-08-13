@@ -78,13 +78,19 @@ int main(int arc, char *argv[]) {
          }
          memset(output, 0, sizeof(output));
       }
+      //Terminer la commande
+      pclose(fp);
+   
       //Envoi du resultat de la commande
       if (send(clientSocket, "Fin de la commande", 19, 0) == -1) {
          perror("Erreur lors de l'envoi du résultat de la commande");
          break;
       }
-
-      //Terminer la commande
-      pclose(fp);
-   }
+      //Ajout du caractère de terminaison
+      char terminationChar = '\0';
+      if (send(clientSocket, &terminationChar, 1, 0) == -1) {
+         perror("Erreur lors de l'envoi du caractère de terminaison");
+         break;
+      }
+   }   
 }
