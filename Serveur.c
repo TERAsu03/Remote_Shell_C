@@ -9,7 +9,7 @@
 
 int main(int arc, char *argv[]) {
    if (arc != 3) {
-      printf("Usage: %s <server_ip><serveur_port\n", argv[0]);
+      printf("Usage: %s <server_ip><server_port\n", argv[0]);
       return(1);
    }
    int serverSocket, clientSocket;
@@ -99,9 +99,6 @@ int main(int arc, char *argv[]) {
       if (send(clientSocket, &terminationChar, 1, 0) == -1) {
          perror("Erreur lors de l'envoi du caractère de terminaison");
          break;
-      }
-      
-      
+      }  
    }
-
 }
