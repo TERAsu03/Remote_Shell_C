@@ -18,6 +18,7 @@ Serveur:
 </pre>
 ## Utilisation:
 1 Compilation du code en utilisant les codes ci-dessus 
+
 2 Exécuter le serveur
 
 <pre>
@@ -42,4 +43,6 @@ Pour terminer le code utiliser la commande exit dans le prompt du client
 </pre>
 ## Auteur
 Thomas Vanderhoeven
+## License
+Ce projet est sous license
 
